@@ -91,33 +91,11 @@ const int IINF=1e9+5;
 const int two_pow_fiv=200008;
 using namespace std;
 
-long long binpow(long long a, long long b) {
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a;
-        a = a * a;
-        b >>= 1;
-    }
-    return res;
-}
-
-
-long long binpowmod(long long a, long long b, long long m) {
-    // function to find a^b modulo m
-    a %= m;
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a % m;
-        a = a * a % m;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve(){
-
+	int n;
+	cin>>n;
+	cout<<"program is working"<<nextline;
+	cout<<n;
 }
 
 

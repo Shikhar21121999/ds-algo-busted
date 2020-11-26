@@ -120,6 +120,7 @@ void solve(){
 
 }
 
+vector <int> a;
 
 int main()
 {
@@ -129,6 +130,27 @@ cin.tie(0);
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 #endif
-    solve();
+    int n;
+    cin>>n;
+    a.resize(n+1,0);
+    loop(0,n)cin>>a[i];
+
+    // create a map of int and array in which all the numbers are kept according to there last digit
+    unordered_map <int,vector<int>> recd;
+
+    // fill the map
+    for(int i=0;i<n;i++){
+        int last_dig=a[i]%10;
+        recd[last_dig].push_back(a[i]);
+    }
+
+    // print the map
+    for(auto x:recd){
+        cout<<x.first<<":"<<space;
+        // x.second is a vector of integers
+        for(auto y:x.second)
+            cout<<y<<space;
+        cout<<nextline;
+    }
 return 0;
 }

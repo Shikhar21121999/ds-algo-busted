@@ -91,31 +91,6 @@ const int IINF=1e9+5;
 const int two_pow_fiv=200008;
 using namespace std;
 
-long long binpow(long long a, long long b) {
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a;
-        a = a * a;
-        b >>= 1;
-    }
-    return res;
-}
-
-
-long long binpowmod(long long a, long long b, long long m) {
-    // function to find a^b modulo m
-    a %= m;
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a % m;
-        a = a * a % m;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve(){
 
 }
@@ -129,6 +104,23 @@ cin.tie(0);
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 #endif
-    solve();
+    int n;
+    float p;
+    cin>>n>>p;
+
+   	// make a dp to store probabilities
+
+   	vector <vector <float> > dp(n+1,vector<float>(2,-1.5));
+
+   	dp[0][1]=1;
+   	dp[0][0]=0;
+
+   	for(int i=1;i<=n;i++){
+   		dp[i][1]=dp[i-1][0]*p+dp[i-1][1]*(1-p);
+   		dp[i][0]=1-dp[i][1];
+   	}
+
+   	printf("%0.30f\n",dp[n][1] );
+
 return 0;
 }
