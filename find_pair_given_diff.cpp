@@ -119,6 +119,29 @@ long long binpowmod(long long a, long long b, long long m) {
 
 
 void solve(){
+    int l,n;
+    cin>>n>>l;
+
+    // l denotes the length of the array and n denotes the required difference between array elements
+
+    vector <int> pres(1000000+5,0);
+    // input the array
+    vector <int> a(n,0);
+    loop(0,n){
+        cin>>a[i];
+        pres[a[i]]=1;
+    }
+
+    bool ans=false;
+    loop(0,n){
+        if(pres[a[i]+l]){
+            cout<<1<<nextline;
+            ans=true;
+            break;
+        }
+    }
+
+    if(!ans)cout<<-1<<nextline;
 
 }
 
@@ -131,6 +154,8 @@ cin.tie(0);
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 #endif
-    solve();
+    test{
+        solve();
+    }
 return 0;
 }

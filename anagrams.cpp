@@ -120,6 +120,32 @@ void solve(){
 
 }
 
+vector<vector<string> > Anagrams(vector<string>& string_list) 
+{
+    // we get vector of strings as input
+    // and we have to return a vector of vector of strings
+
+    // make a map of string and vector of strings
+    unordered_map <string,vector <string> > recd;
+
+    // traverse the input vector of string and store the values in recd
+    for(auto x:string_list){
+        string curr_str=x;
+        sort(all(curr_str));
+        recd[curr_str].push_back(x);
+    }
+
+    // now we traverse the recd and make a vector of string using the put vector of strings
+    vector <vector <string> > oup;
+    for (auto x:recd){
+        // x.second represent a vector of string 
+        // we append this string into oup
+        oup.push_back(x.second);
+    }
+    return oup;
+}
+
+
 vector <int> a;
 
 int main()

@@ -91,6 +91,19 @@ const int IINF=1e9+5;
 const int two_pow_fiv=200008;
 using namespace std;
 
+int *findTwoElement(int *arr, int n) {
+     	int ans[2]={0};
+
+     	sort(arr,arr+n);
+     	for(int i=1;i<=n;i++){
+     		if(arr[i-1]!=i){
+     			ans[0]=arr[i-1];
+     			ans[1]=i;
+     		}
+     	}
+     	return *ans;
+    }
+
 void solve(){
 	// we see if we can make a string using iterators
 
