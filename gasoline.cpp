@@ -1,4 +1,4 @@
-// test
+// template
 #include <bits/stdc++.h>
  
 # define C continue
@@ -91,6 +91,83 @@ const int IINF=1e9+5;
 const int two_pow_fiv=200008;
 using namespace std;
 
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
+}
+
+
+long long binpowmod(long long a, long long b, long long m) {
+    // function to find a^b modulo m
+    a %= m;
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
+
+bool comp(const pair<ll,ll> &a, 
+              const pair<ll,ll> &b) 
+{ 
+    return (a.second < b.second); 
+} 
+
+
+void solve(){
+    int n;
+    cin>>n;
+
+    vector <ll> f(n,0);
+    vector <ll> c(n,0);
+
+    // input f and c
+    for(int i=0;i<n;i++){
+        cin>>f[i];
+    }
+
+    for(int i=0;i<n;i++){
+        cin>>c[i];
+    }
+
+    // make a vector of pair 
+
+    vector <pair <ll,ll> > coll(n);
+
+    // fill the coll
+    for(int i=0;i<n;i++){
+        coll[i]=make_pair(f[i],c[i]);
+    }
+
+    // sort the coll on the basis of cost
+
+    sort(allcomp(coll));
+
+    // we fill the petrol in cars greedily
+    // that is fill the car with cheapest cost firs
+
+
+    ll G=0;
+    ll q=0;
+    ll price=0;
+    for(int i=0;i<n;i++){
+        q=min(coll[i].first,n-G);
+        price+=coll[i].second*q;
+        G+=q;
+    }
+
+    cout<<price<<nextline;
+}
+
 
 int main()
 {
@@ -100,6 +177,8 @@ cin.tie(0);
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 #endif
-    cout<<int('z');
+    test{
+        solve();
+    }
 return 0;
 }

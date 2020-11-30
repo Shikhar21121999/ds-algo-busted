@@ -1,4 +1,4 @@
-// test
+// template
 #include <bits/stdc++.h>
  
 # define C continue
@@ -91,6 +91,65 @@ const int IINF=1e9+5;
 const int two_pow_fiv=200008;
 using namespace std;
 
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
+}
+
+
+long long binpowmod(long long a, long long b, long long m) {
+    // function to find a^b modulo m
+    a %= m;
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
+
+
+
+void solve(){
+    int n;
+    cin>>n;
+    
+    vector <int> a(n+1,0);
+
+    int t_sum=0;
+    loop(1,n+1){
+        cin>>a[i];
+        t_sum+=a[i];
+    }
+    int curr_petrol=a[1];
+
+    int total_distance_covered=0;
+    if(curr_petrol==0){
+        cout<<0<<nextline;
+        return;
+    }
+
+    bool car_stopped=false;
+    for(int i=2;i<=n;i++){
+        curr_petrol--;
+        curr_petrol+=a[i];
+        if(curr_petrol<=0){
+            cout<<i-1<<nextline;
+            return;
+        }
+        
+    }
+    cout<<t_sum<<nextline;
+}
+
 
 int main()
 {
@@ -100,6 +159,8 @@ cin.tie(0);
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 #endif
-    cout<<int('z');
+    test{
+        solve();
+    }
 return 0;
 }

@@ -1,5 +1,13 @@
-2
-6 78
-5 20 3 2 5 80
-5 45
-90 70 20 80 50
+4
+3 3
+abc
+bcd
+4 2
+abba
+azza
+2 1
+zz
+aa
+6 2
+aaabba
+ddddcc

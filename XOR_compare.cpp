@@ -1,4 +1,4 @@
-// test
+// template
 #include <bits/stdc++.h>
  
 # define C continue
@@ -91,6 +91,43 @@ const int IINF=1e9+5;
 const int two_pow_fiv=200008;
 using namespace std;
 
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
+}
+
+
+long long binpowmod(long long a, long long b, long long m) {
+    // function to find a^b modulo m
+    a %= m;
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
+
+
+
+void solve(){
+    ll x,y,n;
+    cin>>x>>y>>n;
+    ll ans=0;
+    for(ll i=0;i<=n;i++){
+        if((x^i) < (y^i))ans++;
+    }
+    cout<<ans<<nextline;
+}
+
 
 int main()
 {
@@ -100,6 +137,8 @@ cin.tie(0);
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 #endif
-    cout<<int('z');
+    test{
+        solve();
+    }
 return 0;
 }
