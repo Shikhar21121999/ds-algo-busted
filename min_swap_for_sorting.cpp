@@ -119,55 +119,6 @@ long long binpowmod(long long a, long long b, long long m) {
 
 
 void solve(){
-    int n,k;
-    cin>>n>>k;
-
-    string str1,str2;
-    cin>>str1>>str2;
-
-    vector <int> hash1(123,0);
-    vector <int> hash2(123,0);
-
-    // fill the hash table 1
-    for(int i=0;i<n;i++){
-        int ind=int(str1[i]);
-        hash1[ind]++;
-    }
-
-    // fill the hash table 2
-    for(int i=0;i<n;i++){
-        int ind=int(str2[i]);
-        hash2[ind]++;
-    }
-
-    // traverse the hash table and see if it is possbible to maintain equality
-
-    for(int i=97;i<=122;i++){
-        // cout<<char(i)<<space<<hash1[i]<<space<<hash2[i]<<nextline;
-        if(hash1[i]>hash2[i] and hash1[i]>=k){e
-            // move 1 is required and can happen
-
-            if((hash1[i]-hash2[i])%k==0){
-                // suitable no of move 1 equals the occurences of current character
-
-                hash1[i+1]+=hash1[i]-hash2[i];
-                hash1[i]=hash2[i];               
-            }
-        }
-
-        // check if after all this character occurences become equal
-        // cout<<char(i)<<space<<hash1[i]<<space<<hash2[i]<<nextline;
-        if(hash1[i]!=hash2[i]){
-            cout<<"No"<<nextline;
-            return;
-        }
-
-    }
-
-    // control reaches here only if all the occurences are equal
-    // in this case suitable no of operation one can be applied to make both string equal
-    cout<<"Yes"<<nextline;
-    return;
 
 }
 
@@ -180,8 +131,6 @@ cin.tie(0);
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 #endif
-    test{
-        solve();
-    }
+    solve();
 return 0;
 }
