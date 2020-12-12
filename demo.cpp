@@ -1,7 +1,8 @@
-// template
+// test 1
 #include <bits/stdc++.h>
+#include <iostream>
 
-#define C continue
+#define C continue;
 #define R return
 
 #define D double
@@ -67,7 +68,8 @@
 #define revsorta sort(a.begin(), a.end(), greater<int>());
 #define revsortb sort(b.begin(), b.end(), greater<>());
 #define loop(q, n) for (int i = q; i < n; i++)
-#define loop2(q, n) for (int j = q; j < n; j++)
+#define loopj(r, n) for (int j = r; j < n; j++)
+#define loopm(s, m) for (int k = s; k < m; k++)
 #define test  \
     int t;    \
     cin >> t; \
@@ -75,12 +77,6 @@
 #define nextline "\n"
 #define tab "\t"
 #define space " "
-#define get_arr_size_n \
-    int n;             \
-    cin >> n;          \
-    int arr[n];        \
-    loop(0, n) cin >> arr[i];
-//vector<vector<int> > vec( n , vector<int> (m, 0));
 //YES
 //NO
 //cout
@@ -91,61 +87,22 @@
 
 const ll mod9 = 1e9 + 7;
 const ll maxsize = 2e9 + 1;
-// const ll mod =998244353;
+const ll mod = 998244353;
 const ll mod2 = 1073741824;
+
 const ll INF = 1e18L + 5;
-const int IINF = 1e9 + 5;
-const int two_pow_fiv = 200008;
 using namespace std;
-
-long long binpow(long long a, long long b)
-{
-    long long res = 1;
-    while (b > 0)
-    {
-        if (b & 1)
-            res = res * a;
-        a = a * a;
-        b >>= 1;
-    }
-    return res;
-}
-
-long long binpowmod(long long a, long long b, long long m)
-{
-    // function to find a^b modulo m
-    a %= m;
-    long long res = 1;
-    while (b > 0)
-    {
-        if (b & 1)
-            res = res * a % m;
-        a = a * a % m;
-        b >>= 1;
-    }
-    return res;
-}
-
-long long binmul(long long a, long long b, long long m)
-{
-    a %= m;
-    long long res = 0;
-    while (b > 0)
-    {
-        if (b & 1)
-            res = res + a % m;
-        a = a + a % m;
-        b >>= 1;
-    }
-    return res;
-}
 
 void solve()
 {
-    int a, b;
-    cin >> a >> b;
-    cout << a << space << b << nextline;
-    cout << "working from template also" << nextline;
+    int n;
+    cin >> n;
+    cout << 1 << space << 2 << space;
+    for (int i = 3; i <= n; i++)
+    {
+        cout << i << space;
+    }
+    cout << nextline;
 }
 
 int main()
@@ -154,10 +111,10 @@ int main()
     cin.tie(0);
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
 #endif
-    ll a = 12;
-    ll b = 5;
-    ll mod = 1000000007;
-    cout << binmul(a, b, mod);
-    return 0;
+    test
+    {
+        solve();
+    }
 }
