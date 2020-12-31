@@ -140,17 +140,68 @@ long long binmul(long long a, long long b, long long m)
     return res;
 }
 
-void solve()
+int solve()
 {
-    int a, b;
-    cin >> a >> b;
-    cout << a << space << b << nextline;
-    cout << "working from template also" << nextline;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+
+    loop(0, n) cin >> a[i];
+
+    loop(0, n) cout << a[i] << space;
+    cout << nextline;
+
+    // make a vector of pairs
+    vector<pair<int, int>> arr(n);
+
+    loop(0, n)
+    {
+        arr[i].first = a[i];
+        arr[i].second = i;
+    }
+
+    // sort the arr by array
+    // so as to get right position
+    // basically it arranges arr such that arr.first
+    sort(all(arr));
+
+    // to store the visited nodes
+    vector<int> vis(n, 0);
+
+    // store answer
+    int answer = 0;
+
+    // loop through all elements of the array
+    loop(0, n)
+    {
+
+        // check if current is visited or does not need swap
+        if (vis[i] || i == arr[i].second)
+            continue;
+
+        // else there is a cycle
+        // now we recurse through cycle
+        // to find the size of cycle
+        int cycle_size = 0;
+        int j = i;
+        while (!vis[j])
+        {
+            // mark this as visited
+            vis[j] = 1;
+
+            // update j to next node
+            j = arr[j].second;
+            cycle_size++;
+        }
+        answer += (cycle_size - 1);
+    }
+    return answer;
 }
 
 int main()
 {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    solve();
+    int p=solve();
+    cout<<p<<endl;
 }
