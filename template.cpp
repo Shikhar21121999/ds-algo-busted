@@ -128,6 +128,7 @@ long long binpowmod(long long a, long long b, long long m)
 
 long long binmul(long long a, long long b, long long m)
 {
+	// To perform multiplication with modulo of long long number
     a %= m;
     long long res = 0;
     while (b > 0)
