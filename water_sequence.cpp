@@ -1,45 +1,67 @@
-// program to solve water sequencing problem
-#include<bits/stdc++.h>
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
-#include <map>
+// water connection problem
+
+#include <bits/stdc++.h>
 using namespace std;
+int min_wt_edge,tail_node;
 
-vector <vector <pair <int,int> > > adj;
-vector <int> vis;
-vector <int> sec;
-
-void ans_mag(int a){
-	// need a function that gives us
-	// the last node as well as 
-	// the smallest edge in the path
-	
+void dfs(int node,const vector <int> &next,const vector <int> &dia){
+	tail_node=node;
+	if(next[node]!=0){
+		min_wt_edge=min(min_wt_edge,dia[node]);
+		dfs(next[node],next,dia);
+	}
 }
 
-
 void solve(){
-	// input no of vertex and edges
 	int v,e;
 	cin>>v>>e;
 	
-	// resize graph and vis vector
-	adj.resize(v+1);
-	vis.resize(v+1,0);
-	sec.resize(v+1,0)
+	vector <int> next(v+1);
+	vector <int> dia(v+1);
+	vector <bool> has_incomin_edge(v+1,false);
 	
-	int v1,v2,edg;
-	// input and make a graph
 	for(int i=0;i<e;i++){
-		cin>>v1>>v2>>edg;
-		adj[v1].push_back(make_pair(v2,edg));
-		sec[v2]=1;
+		int from,to,diam;
+		cin>>from>>to>>diam;
+		has_incomin_edge[to]=true;
+		next[from]=to;
+		dia[from]=diam;
 	}
 	
-	// all the node that don't have a edge
-	// in which they are the second vertex
-	// impilies these nodes are the first node for all components
-	for
+	vector <array <int,3> > ans;
 	
+	// checking for each vertex
+	for(int i=1;i<=v;i++){
+		// if not a first vetex
+		if(has_incomin_edge[i])continue;
+		
+		if(next[i]==0)continue;
+		
+		// node i is a head node
+		// and it has some nodes attached to it
+		// start dfs from here
+		
+		min_wt_edge=INT_MAX;
+		tail_node=-1;
+		
+		// call dfs
+		dfs(i,next,dia);
+		ans.push_back({i,tail_node,min_wt_edge});
+	}
+	cout<<ans.size()<<"\n";
+	
+	for(auto x:ans){
+		cout<<x[0]<<" "<<x[1]<<" "<<x[2]<<"\n";
+	}
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);cin.tie(0);
+	//ios_base :: sync_with_stdio ( false ) ; cin.tie ( 0 ) ;
+	int t;
+	cin>>t;
+	while(t--){
+		solve();
+	}
+	return 0;
 }
