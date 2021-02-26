@@ -11,18 +11,17 @@ using namespace std;
 # define pii pair<int,int>
 
 bool is_allowed(int i,int j,vvi &vis,vvi &m,int n){
-	cout<<"checking indices\n";
-	cout<<i<<" "<<j<<"\n";
-	if(i>=n || j>=n)return false;
+	if(i>=n || j>=n || i<0 || j<0)return false;
 	// check if this coordinate is visitable
-	if(i<n and j<n and vis[i][j]==0 and m[i][j]!=0)return true;
+	if(vis[i][j]==0 and m[i][j]!=0){
+		return true;
+	}
 	return false;
 }
 
 
 void backtrack(int i,int j,string prev_path,vs &ans,vvi &vis,vvi &m,int n){
 	
-	cout<<i<<" "<<j<<" "<<prev_path<<"\n";
 	
 	// base case
 	if(i==n-1 and j==n-1){
@@ -34,54 +33,68 @@ void backtrack(int i,int j,string prev_path,vs &ans,vvi &vis,vvi &m,int n){
 	// recursive case
 	// we need to test for all the 4 directions
 	
-	pii top=make_pair(i,j-1);
-	pii bottom=make_pair(i,j+1);
-	pii left=make_pair(i-1,j);
-	pii right=make_pair(i+1,j);
+	pii left=make_pair(i,j-1);
+	pii right=make_pair(i,j+1);
+	pii top=make_pair(i-1,j);
+	pii bottom=make_pair(i+1,j);
+	// cout<<i<<" "<<j<<endl;
+	// cout<<"top:"<<top.first<<" "<<top.second<<endl;
+	// cout<<"bottom:"<<bottom.first<<" "<<bottom.second<<endl;
+	// cout<<"left:"<<left.first<<" "<<left.second<<endl;
+	// cout<<"right:"<<right.first<<" "<<right.second<<endl;
 	
+	char dir;
 	// check each coords to be visitable
 	if(is_allowed(top.first,top.second,vis,m,n)){
 		// we can go to the above coord
 		
-		// do 
-		string new_path=prev_path+'T';
+		// do
+		dir='T';
+		prev_path+=dir;
 		vis[top.first][top.second]=1;
 		// recur
 		backtrack(top.first,top.second,prev_path,ans,vis,m,n);
 		// undo
-		vis[top.first][top.second]=1;
+		prev_path.erase(prev_path.length()-1);
+		vis[top.first][top.second]=0;
 	}
 	if(is_allowed(bottom.first,bottom.second,vis,m,n)){
 		// we can go to the bottom coord
 		
 		// do 
-		string new_path=prev_path+'B';
+		dir='D';
+		prev_path+=dir;
 		vis[bottom.first][bottom.second]=1;
 		// recur
 		backtrack(bottom.first,bottom.second,prev_path,ans,vis,m,n);
 		// undo
+		prev_path.erase(prev_path.length()-1);
 		vis[bottom.first][bottom.second]=0;
 	}
 	if(is_allowed(left.first,left.second,vis,m,n)){
 		// we can go to the left coord
 		
 		// do 
-		string new_path=prev_path+'L';
+		dir='L';
+		prev_path+=dir;
 		vis[left.first][left.second]=1;
 		// recur
 		backtrack(left.first,left.second,prev_path,ans,vis,m,n);
 		// undo
+		prev_path.erase(prev_path.length()-1);
 		vis[left.first][left.second]=0;
 	}
 	if(is_allowed(right.first,right.second,vis,m,n)){
 		// we can go to the right coord
 		
 		// do 
-		string new_path=prev_path+'R';
+		dir='R';
+		prev_path+=dir;
 		vis[right.first][right.second]=1;
 		// recur
 		backtrack(right.first,right.second,prev_path,ans,vis,m,n);
 		// undo
+		prev_path.erase(prev_path.length()-1);
 		vis[right.first][right.second]=0;
 	}
 }
@@ -107,12 +120,6 @@ int main(){
 			for(int j=0;j<n;j++){
 				cin>>m[i][j];
 			}
-		}
-		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				cout<<m[i][j]<<" ";
-			}
-			cout<<"\n";
 		}
 		vector <string> result=findPath(m,n);
 		if(result.size()==0)cout<<-1;
