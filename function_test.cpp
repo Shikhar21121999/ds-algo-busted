@@ -3,6 +3,8 @@
 
 #include <bits/stdc++.h>
 using namespace std;
+# define vi vector <int>
+# define vvi vector <vi>
 
 
 void print_vector (const vector <bool> p){
@@ -20,15 +22,48 @@ void const_pass(vector <bool> &p){
 }
 
 void pointer_pass(vector <bool>* p){
-	p[3]=true;
+	
+	// p[3]=true;
 }
 
+// print the vector
+void print_vvi(vvi a){
+	for(auto x:a){
+		for(auto y:x){
+			cout<<y<<" ";
+		}
+		cout<<endl;
+	}
+}
+
+void print_vi(vi a){
+	for(auto x:a){
+		cout<<x<<" ";
+	}
+	cout<<endl;
+}
+
+// conclusion vector gets modified if a refrence is passed
+void func1(vvi &a){
+	a[0][0]=1;
+} 
+
+// this does not lead to changes in array
+void func2(const vvi a){
+	// a[0][0]=1;
+}
+
+
 int main(){
-	int n;
-	cin>>n;
-	vector <bool> ans(n,false);
-	print_vector(ans);
-	const_pass(ans);
-	pointer_pass(&ans);
-	print_vector(ans);
+	vi a={4,5,8,6,9};
+	vi b;
+	for(auto x:a){
+		b.push_back(x);
+	}
+	sort(b.begin(),b.end());
+	print_vi(a);
+	print_vi(b);
+	
+	
+	
 }
