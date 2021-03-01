@@ -34,6 +34,10 @@ class Solution{
 			vvi ans;
 			vi curr_ele;
 			sort(A.begin(),A.end());
+			for(auto x:A){
+				cout<<x<<" ";
+			}
+			cout<<endl;
 			// ar.erase(unique(ar.begin(), ar.end()), ar.end());
 			A.erase(unique(A.begin(),A.end()),A.end());
 			backtrack(0,&B,curr_ele,ans,A);
