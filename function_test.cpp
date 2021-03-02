@@ -53,16 +53,45 @@ void func2(const vvi a){
 	// a[0][0]=1;
 }
 
+void solve(){
+	set<int> s;
+	for(int i=5;i>0;i--){
+		s.insert(i);
+	}
+	for(auto itr=s.begin();itr!=s.end();itr++){
+		cout<<*itr;
+	}
+	cout<<endl;
+	auto itr=s.begin();
+	cout<<*itr;
+	advance(itr,3);
+	cout<<*itr;
+	s.erase(*itr);
+	for(auto itr=s.begin();itr!=s.end();itr++){
+		cout<<*itr;
+	}
+}
+
+bool is_reg(string a){
+	int op_brac_cnt=0;
+	int clo_brac_cnt=0;
+	for(int i=0;i<a.length();i++){
+		if(clo_brac_cnt>op_brac_cnt)return false;
+		if(a[i]=='('){
+			op_brac_cnt++;
+		}
+		else if(a[i]==')'){
+			clo_brac_cnt++;
+		}
+	}
+	if(op_brac_cnt!=clo_brac_cnt)return false;
+	return true;
+}
 
 int main(){
-	vi a={4,5,8,6,9};
-	vi b;
-	for(auto x:a){
-		b.push_back(x);
-	}
-	sort(b.begin(),b.end());
-	print_vi(a);
-	print_vi(b);
+	string inp;
+	cin>>inp;
+	cout<<is_reg(inp);
 	
 	
 	
