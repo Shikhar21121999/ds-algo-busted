@@ -3,6 +3,11 @@
 
 #include <bits/stdc++.h>
 using namespace std;
+# define vi vector<int>
+# define vvi vector<vi>
+# define pii pair<int,int>
+# define ppii pair<pii,int>
+// first second
 
 vector < vector <int> > dp(1008,vector<int>(1108,-1));
 int movex[8]={ 2, 2, -2, -2, +1, -1, +1, -1 };
@@ -11,41 +16,40 @@ class Solution{
 	public:
 		int minStepToReachTarget(vector <int> &KnightPos,vector <int> &TargetPos,int N){
 			// base case invalid coords
-			int i=KnightPos[0];
-			int j=KnightPos[1];
-			cout<<i<<" "<<j<<endl;
-			if(i<=0 or j<=0 or i>N or j>N){
-				cout<<"shit got real"<<endl;
-			}
-			// base case answer already computed
-			if(dp[i][j]!=-1)return dp[i][j];
-			
-			// base case answer found
-			if(i==TargetPos[0] and j==TargetPos[1])return 0;
-			
-			// recursive case
-			int nextx;
-			int nexty;
-			int min_dis=INT_MAX;
-			for(int k=0;k<8;k++){
-				nextx=i+movex[k];
-				nexty=j+movey[k];
-				// check and recurse for these coords
-				if(nextx>0 and nexty>0 and nextx<=N and nexty<=N){
-					// perform recursion and find the min path
-					// do
-					KnightPos[0]=nextx;
-					KnightPos[1]=nexty;
-					// recur
-					min_dis=min(min_dis,minStepToReachTarget(KnightPos,TargetPos,N));
-					// redo
-					KnightPos[0]=i;
-					KnightPos[1]=j;
+			vvi vis(N,vi(N+1));
+			ppii cell=make_pair(make_pair(KnightPos[0],KnightPos[1]),0);
+			queue<ppii> q;
+			q.push(cell);
+			while(!q.empty()){
+				cell=q.front();
+				q.pop();
+
+				// if this is a target cell
+				if(cell.first.first==TargetPos[0] && cell.first.second==TargetPos[1]){
+					return cell.second;
+				}
+
+				// if some other cell
+				// perform further traversal only if unvisited
+				if(!vis[cell.first.first][cell.first.second]){
+					vis[cell.first.first][cell.first.second]=1;
+					// push all other valid steps into the queue
+					int curr_x=cell.first.first;
+					int curr_y=cell.first.second;
+					for(int i=0;i<N;i++){
+						int next_x=curr_x+movex[i];
+						int next_y=curr_y+movey[i];
+						// valid check
+						if(next_x>0 && next_y>0 && next_x<=N && next_y<=N){
+							// push in the queue
+							q.push(make_pair(make_pair(next_x,next_y),cell.second+1));
+						}
+					}
 				}
 			}
-			return dp[i][j]=min_dis;
-					
+			return 6969;
 		}
+			
 }; 
 
 
