@@ -67,8 +67,8 @@ cin.tie(0);
     string inp;
     cin>>inp;
     cout<<inp;
-    cout<<"h";
-    int a=INT_MAX;
-    cout<<INT_MIN;
+    for(int i=0;i<inp.length();i++){
+    	cout<<inp[i]-'a'<<space;
+    }
 return 0;
 }
