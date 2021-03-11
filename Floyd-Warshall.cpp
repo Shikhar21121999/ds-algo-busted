@@ -15,11 +15,24 @@ class Solution{
 public:
 	void shortest_distance(vvi &matrix){
 		int v=matrix.size();
+		int INF=INT_MAX;
+		// here we are considering both possibilities
+		// that is if a cell has negative values
+		// then that edge does not exist and it is impossible to go through that
+		// also if distance to and edge is INf then that edge also does not exist
 		for(int k=0;k<v;k++){
 			for(int i=0;i<v;i++){
 				for(int j=0;j<v;j++){
-					if (matrix[i][k] + matrix[k][j] < matrix[i][j]) 
-                    matrix[i][j] = matrix[i][k] + matrix[k][j]; 
+					if (matrix[i][k]<INF && matrix[k][j]<INF && matrix[i][k]+matrix[k][j]<INF and matrix[i][k]!=-1 and matrix[k][j]!=-1 and matrix[i][j]!=-1) 
+                    matrix[i][j] = min(matrix[i][j],matrix[i][k] + matrix[k][j]); 
+				}
+			}
+		}
+
+		for(int i=0;i<v;i++){
+			for(int j=0;j<v;j++){
+				if(matrix[i][j]>=INF){
+					matrix[i][j]=-1;
 				}
 			}
 		}
