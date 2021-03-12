@@ -59,31 +59,12 @@ const ll INF=1e18L+5;
 const int IINF=1e9+5;
 const int two_pow_fiv=200008;
 
-// to get the coords of number in the grid
-void getCoor(int num,int n) {
-	cout<<num<<" "<<n<<endl;
-    int row=(n-1)-(num-1)/n;
-    cout<<row<<endl;
-    int col;
-    if(row%2==0){
-    	// even n
-    	col=(num-1)%n;
-    }
-    else{
-    	// odd n
-    	col=(n-1)-((num-1)%n);
-    }
-    return {row,col};
-}
-
 
 int main()
 {
 ios::sync_with_stdio(0);
 cin.tie(0);
-	int n;
-	int num;
-	cin>>num>>n;
-	getCoor(num,n);
+	double Ans=1.0245121;
+	printf("%.15lf\n",Ans);
 return 0;
 }
