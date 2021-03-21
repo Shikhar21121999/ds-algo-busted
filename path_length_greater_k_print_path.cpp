@@ -1,4 +1,5 @@
 // program to solve path length more than k
+// also print the path
 // link:https://www.geeksforgeeks.org/find-if-there-is-a-path-of-more-than-k-length-from-a-source/
 
 #include <bits/stdc++.h>
@@ -10,10 +11,12 @@ using namespace std;
 #define vvpii vector<vpii>
 #define vvi vector<vi>
 
-bool path_greater(int node,vvpii &graph,vb &vis,int left_length){
+bool path_greater(int node,vvpii &graph,vb &vis,int left_length,vi &path){
 	// base case
 	if(left_length<=0){
+		// printing stored path
 		return true;
+
 	}
 	
 	// recursive case
@@ -21,9 +24,11 @@ bool path_greater(int node,vvpii &graph,vb &vis,int left_length){
 		if(!vis[x.first]){
 			// do
 			vis[x.first]=true;
-			if(path_greater(x.first,graph,vis,left_length-x.second)){
+			path.push_back(x.first);
+			if(path_greater(x.first,graph,vis,left_length-x.second,path)){
 				return true;
 			}
+			path.pop_back();
 			vis[x.first]=false;
 		}
 	}
@@ -48,8 +53,13 @@ int main(){
 	int source,k;
 	cin>>source>>k;
 	vis[source]=true;
-	if(path_greater(source,graph,vis,k)){
+	vi path;
+	if(path_greater(source,graph,vis,k,path)){
 		cout<<"yes\n";
+		for(auto x:path){
+			cout<<x<<" ";
+		}
+		cout<<endl;
 	}
 	else cout<<"No\n";
 }
