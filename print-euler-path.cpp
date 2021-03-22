@@ -1,5 +1,6 @@
-// program to print euler path
+// program to print euler path or euler circuit
 // in a given graph
+// using fleury's algorithm
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,6 +18,123 @@ using namespace std;
 
 // for a graph to have a euler path
 // it must either be a euler graph or a semi euler graph
+
+int DfsCount(int u,vvi &adj,vi &vis){
+	int count=1;
+	vis[u]=1;
+	// recurse for all adjacent nodes
+	for(auto v:adj[u]){
+		if(v!=-1 and vis[v]==0){
+			count+=DfsCount(v,adj,vis);
+		}
+	}
+	return count;
+}
+
+void rmEdge(int u,int v,vvi &adj){
+	// function to remove edge u-v from the graph
+	// this is an undirected graph and is in the adjacency list representation
+
+	// remove v from the ajacency list representation of u
+	vi::iterator iv=find(adj[u].begin(), adj[u].end(),v);
+	*iv=-1;
+
+	// remove u from adjacency list representation of v
+	vi::iterator iu=find(adj[v].begin(), adj[v].end(),u);
+	*iu=-1;
+}
+
+bool validEdge(int u,int v,vvi &adj){
+	// function to check if the edge u-v is valid
+
+	int n=adj.size();
+	// edge u-v is valid in two conditions
+	// 1. if u-v is the last edge between u and v
+	int edge_cnt=0;
+	for(auto x:adj[u]){
+		if(x!=-1)edge_cnt++;
+	}
+	if(edge_cnt==1)return true;
+
+	// 2. if u-v is not the last edge and u-v is not a bridge edge
+
+	// count number of connected nodes in dfs traversal before removing edge u-v
+	// and compare it with number of connected nodes after removing edge u-v
+
+	// before removing
+	int count1=0;
+	vi vis(n,0);
+	count1=DfsCount(u,adj,vis);
+
+	// remove edge
+	rmEdge(u,v,adj);
+
+	fill(vis.begin(),vis.end(),0);
+	int count2=DfsCount(u,adj,vis);
+	
+	// add the edge back
+	adj[u].push_back(v);
+	adj[v].push_back(u);
+	return (count1>count2)?false:true;
+}
+
+void printEulerUtil(int u,vvi &adj){
+	// utility function to print euler path or ckt
+	// by choosing and printing an edge from u to some v
+	cout<<u<<" "<<adj[u].size()<<endl;
+	for(auto v:adj[u]){
+		cout<<u<<" "<<v<<" "<<adj[u].size()<<endl;
+		for(auto v:adj[u]){
+			cout<<v<<" ";
+		}
+		cout<<endl;
+		if(v!=-1 and validEdge(u,v,adj)){
+			cout<<u<<"-"<<v<<"\n";
+			cout<<"vertices in u\n";
+			for(auto x:adj[u]){
+				cout<<x<<" ";
+			}
+			cout<<endl;
+			cout<<"vertices in v\n";
+			for(auto x:adj[v]){
+				cout<<x<<" ";
+			}
+			cout<<endl;
+			rmEdge(u,v,adj);
+			rmEdge(u,v,adj);
+
+			cout<<"vertices in u\n";
+			for(auto x:adj[u]){
+				cout<<x<<" ";
+			}
+			cout<<endl;
+			cout<<"vertices in v\n";
+			for(auto x:adj[v]){
+				cout<<x<<" ";
+			}
+			cout<<endl;
+			printEulerUtil(v,adj);
+		}
+	}
+	cout<<"exitting\n";
+}
+
+void printEuler(vvi &adj){
+	// function to print euler path or ckt
+	// cout<<"inside euler\n";
+	int n=adj.size();
+	// find the starting node (in case of euler path)
+	int st=0;
+	for(int i=0;i<n;i++){
+		if(adj[i].size()&1){
+			st=i;
+			break;
+		}
+	}
+	cout<<"Euler is fine\n";
+	// cout<<st<<endl;
+	printEulerUtil(st,adj);
+}
 
 void dfs(int curr_node,vvi &adj,vi &vis){
 	// perform dfs to mark all the nodes in the connected component
@@ -96,14 +214,22 @@ int eulerGraphType(vvi &adj){
 		// not a euler and not a semi euler graph
 		return 0;
 	}
-	else{
-		// either a euler graph or a semi-euler graph
-		// in such a case euler path exist and we have to print it
-		// euler path is nothing but the path in the connected component
-		// provided we do not repeat any edge
-
+	if(oddDegCnt==2){
+		// a semi euler graph
+		printEuler(adj);
+		cout<<endl;
+		return 1;
 	}
+	printEuler(adj);
+	cout<<endl;
+	return 2;
 }
+
+
+
+
+
+
 
 int main(){
 	int n,m;
