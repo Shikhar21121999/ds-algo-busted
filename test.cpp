@@ -64,7 +64,13 @@ int main()
 {
 ios::sync_with_stdio(0);
 cin.tie(0);
-	double Ans=1.0245121;
-	printf("%.15lf\n",Ans);
+	int a[][4] = { { 4, 5, 3, 2 },
+                   { 2, 10, 1, 4 } };
+
+    // printing the first row
+    for(int i=0;i<4;i++){
+    	cout<<a[0][i]<<" ";
+    }
+    cout<<endl;
 return 0;
 }
