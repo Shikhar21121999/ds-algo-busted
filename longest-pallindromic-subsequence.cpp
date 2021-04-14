@@ -20,7 +20,7 @@ int lps1(string inp){
 			}
 
 			// case 2 characters match
-			if(inp[i]==inp[j]){
+			else if(inp[i]==inp[j]){
 				dp[i][j]=dp[i+1][j-1]+2;
 			}
 			else{
