@@ -3,57 +3,48 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define vi vector<int>
-#define vvi vector<vi>
-#define pii pair<int,int>
-#define vpii vector<pii>
-#define vvpii vector<vpii>
+#define vb vector<bool>
+#define vvb vector<vb>
 
 class Solution{
 public:
-	pii maxF(pii a,pii b){
-		if(a.first>=b.first)return a;
-		return b;
-	}
 	string longestPallindrome(string s){
 		int n=s.length();
-		vvpii dp(n,vpii(n));
+		vvb dp(n,vb(n,0));
+
+		// all substring of length 1 are pallindrome
 		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				dp[i][j]=make_pair(1,i);
-			}
+			dp[i][i]=1;
 		}
+		pair<int,int> ans=make_pair(1,0);
 
 		for(int len=2;len<=n;len++){
 			for(int i=0;i<=n-len;i++){
 				int j=i+len-1;
-				// length of substring is 2
-				if(len==2 and s[i]==s[j]){
-					dp[i][j]=make_pair(2,i);
-				}
 
-				else if(s[i]==s[j]){
-					dp[i][j]=dp[i+1][j-1];
-					if(s[i+1]==s[j-1]){
-						dp[i][j]=make_pair(dp[i][j].first+2,i);
+				// case length is 2 and a pallindrome
+				if(len==2 and s[i]==s[j]){
+					dp[i][j]=1;
+					if(len>ans.first){
+						ans=make_pair(len,i);
 					}
 				}
-				else{
-					dp[i][j]=maxF(dp[i][j-1],dp[i+1][j]);
-				}
 
+				// if characters are same
+				if(s[i]==s[j] and dp[i+1][j-1]){
+					dp[i][j]=1;
+					if(len>ans.first){
+						ans=make_pair(len,i);
+					}
+				}
 			}
 		}
-		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				cout<<dp[i][j].first<<","<<dp[i][j].second<<"  ";
-			}
-			cout<<endl;
-		}
-		cout<<dp[0][n-1].first<<" "<<dp[0][n-1].second<<endl;
-		string ans=s.substr(dp[0][n-1].second,dp[0][n-1].first);
-		// cout<<ans<<endl;
-		return ans;
+
+		// cout<<ans.first<<" "<<ans.second<<endl;
+		string ansstr=s.substr(ans.second,ans.first);
+		// cout<<ansstr<<endl;
+		return ansstr;
+
 	}
 };
 
