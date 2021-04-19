@@ -62,15 +62,10 @@ const int two_pow_fiv=200008;
 
 int main()
 {
-ios::sync_with_stdio(0);
-cin.tie(0);
-	int a[][4] = { { 4, 5, 3, 2 },
-                   { 2, 10, 1, 4 } };
-
-    // printing the first row
-    for(int i=0;i<4;i++){
-    	cout<<a[0][i]<<" ";
-    }
-    cout<<endl;
-return 0;
+	vvi ans(2);
+	ans[0]={4,5};
+	for(auto x:ans[0]){
+		cout<<x<<" ";
+	}
+	cout<<endl;
 }
