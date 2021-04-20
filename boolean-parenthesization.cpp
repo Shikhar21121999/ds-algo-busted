@@ -8,6 +8,7 @@ class Solution{
 public:
 	int countWays(int n, string s){
         // code here
+        int m=1003;
 		vvi T(n,vi(n,0));
 		vvi F(n,vi(n,0));
 
@@ -30,34 +31,27 @@ public:
 			for(int i=0;i<=n-gap;i+=2){
 				int j=i+gap-1;
 				for(int k=i+1;k<j;k+=2){
-					// cout<<i<<" "<<j<<" "<<s[k]<<endl;
 
-					int totalik=T[i][k-1]+F[i][k-1];
-					int totalkj=T[k+1][j]+F[k+1][j];
+					int totalik=(T[i][k-1]%m+F[i][k-1]%m)%m;
+					int totalkj=(T[k+1][j]%m+F[k+1][j]%m)%m;
 
 					// if operator at k is |
 					if(s[k]=='|'){
-						T[i][j]+=(totalik*totalkj-F[i][k-1]*F[k+1][j]);
-						F[i][j]+=F[i][k-1]*F[k+1][j];
+						T[i][j]=(T[i][j]%m+((totalik%m*totalkj%m)%m-(F[i][k-1]%m*F[k+1][j]%m)%m)%m)%m;
+						F[i][j]=(F[i][j]%m+(F[i][k-1]%m*F[k+1][j]%m)%m)%m;
 					}
 					// if operator is &
 					else if(s[k]=='&'){
-						T[i][j]+=T[i][k-1]*T[k+1][j];
-						F[i][j]+=(totalik*totalkj-T[i][k-1]*T[k+1][j]);
+						T[i][j]=(T[i][j]%m+(T[i][k-1]%m*T[k+1][j]%m)%m)%m;
+						F[i][j]=(F[i][j]%m+((totalik%m*totalkj%m)%m-(T[i][k-1]%m*T[k+1][j]%m)%m)%m)%m;
 					}
 					// if operator is ^
 					else if(s[k]=='^'){
-						T[i][j]+=T[i][k-1]*F[k+1][j]+F[i][k-1]*T[k+1][j];
-						F[i][j]+=T[i][k-1]*T[k+1][j]+F[i][k-1]*F[k+1][j];
+						T[i][j]=(T[i][j]%m+((T[i][k-1]%m*F[k+1][j]%m)%m+(F[i][k-1]%m*T[k+1][j]%m)%m)%m)%m;
+						F[i][j]=(F[i][j]%m+((T[i][k-1]%m*T[k+1][j]%m)%m+(F[i][k-1]%m*F[k+1][j]%m)%m)%m)%m;
 					}
 				}
 			}
-		}
-		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				cout<<T[i][j]<<" ";
-			}
-			cout<<endl;
 		}
 
 		return T[0][n-1];
